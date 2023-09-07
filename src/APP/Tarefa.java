@@ -1,7 +1,10 @@
-import java.util.Date;
-import java.util.Objects;
+package APP;
 
-public class Tarefa {
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class Tarefa implements Serializable {
 
 
 
@@ -9,7 +12,7 @@ public class Tarefa {
     private String nome;
     private String descricao;
 
-    private String data_de_prioridade;
+    private LocalDate data_de_prioridade;
     private String categoria;
 
 
@@ -26,35 +29,29 @@ public class Tarefa {
        this.id = Id;
        this.nome = Nome;
        this.descricao = Descricao;
-       this.data_de_prioridade = Data_de_prioridade;
+       this.data_de_prioridade = transformeEmData(Data_de_prioridade);
        this.categoria = Categoria;
        this.status = status;
        this.prioridade = prioridade;
 
     }
+    public Tarefa(){
 
+
+    }
+
+    @Override
+    public String toString() {
+        return "ID: "+ this.id + ", nome: " +  this.getNome() + ", descrição: " + this.getDescricao() +
+                ", data: " + this.getData_de_prioridade() + ", categoria: " + this.getCategoria() + ", Status: " + getStatus() + ", Prioridade: " + this.getPrioridade();
+
+    }
 
     //READ TAREFA
     public void read(){
 
-
-        System.out.println("ID: "+ this.id + ", nome: " +  this.getNome() + ", descrição: " + this.getDescricao() +
-                ", data: " + this.getData_de_prioridade() + ", categoria: " + this.getCategoria() + ", Status: " + getStatus() + ", Prioridade: " + this.getPrioridade());
-
+        System.out.println( this);
     }
-
-
-
-
-
-    //DELETE TAREFA
-    public void delete(Tarefa tarefa){
-
-
-
-
-    }
-
 
 
 
@@ -86,13 +83,21 @@ public class Tarefa {
     }
 
 
-    public String getData_de_prioridade() {
+    public LocalDate getData_de_prioridade() {
         return data_de_prioridade;
     }
 
     public void setData_de_prioridade(String data_de_prioridade) {
-        this.data_de_prioridade = data_de_prioridade;
+
+
+        this.data_de_prioridade = transformeEmData(data_de_prioridade);
     }
+
+    public static LocalDate transformeEmData(String data){
+        return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    }
+
+
     public String getCategoria() {
         return categoria;
     }

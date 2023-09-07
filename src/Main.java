@@ -1,24 +1,27 @@
-import javax.sound.midi.Soundbank;
+import APP.Status;
+import APP.Tarefa;
+import com.google.gson.Gson;
+import saveRead.SalvarTarefas;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Stream;
 import java.util.Comparator;
-import java.util.Collections;
 
 public class Main {
 
-
-
     public static void main(String[] args) {
-
+        Gson gson = new Gson();
         Scanner sc = new Scanner(System.in);
 
-        List<Tarefa> tarefas = new LinkedList<Tarefa>();
-        Tarefa tarefa1 = new Tarefa(1,"Fazer CRD", "Fazer o back-end do to-do list e adicionar as funcionalidades CRD","21/02/2023", "Back-end", Status.DOING, 1);
-        Tarefa tarefa2 = new Tarefa(2, "Clase da Tarefa", "Criar uma classe com os atributos da tarefa","21/12/2023", "Back-end", Status.DONE, 1);
-        Tarefa tarefa3 = new Tarefa(3, "Fazer tela dos cards das tarefas", "Usar pre modelos prontos de cards e customizar","21/03/2023", "Front-end", Status.TO_DO, 3);
-        Tarefa tarefa4 = new Tarefa(4, "Banco de dados", "Criar o banco de dados da terefa e seus relacionamentos","21/02/2023", "BD", Status.TO_DO, 5);
-        Tarefa tarefa5 = new Tarefa(5, "Fazer menu crud", "Criar uma aba para o CRUD ","21/02/2023", "Front-end", Status.TO_DO, 3);
+        List<Tarefa> tarefas = new ArrayList<>();
+        Tarefa tarefa1 = new Tarefa(1,"Fazer CRD", "Fazer o back-end do to-do list e adicionar as funcionalidades CRD","12-02-2023", "Back-end", Status.DOING, 1);
+        Tarefa tarefa2 = new Tarefa(2, "Clase da Tarefa", "Criar uma classe com os atributos da tarefa","12-12-2023", "Back-end", Status.DONE, 1);
+        Tarefa tarefa3 = new Tarefa(3, "Fazer tela dos cards das tarefas", "Usar pre modelos prontos de cards e customizar","12-03-2023", "Front-end", Status.TO_DO, 3);
+        Tarefa tarefa4 = new Tarefa(4, "Banco de dados", "Criar o banco de dados da terefa e seus relacionamentos","12-02-2023", "BD", Status.TO_DO, 5);
+        Tarefa tarefa5 = new Tarefa(5, "Fazer menu crud", "Criar uma aba para o CRUD ","12-02-2023", "Front-end", Status.TO_DO, 3);
         tarefas.add(tarefa1);
         tarefas.add(tarefa2);
         tarefas.add(tarefa3);
@@ -26,49 +29,53 @@ public class Main {
         tarefas.add(tarefa5);
 
 
-        Function<Tarefa, Integer> extraiPrioridade = t -> t.getPrioridade();
+
+        Function<Tarefa, Integer> extraiPrioridade = Tarefa::getPrioridade;
         Comparator<Tarefa> comparePrioridade = Comparator.comparing(extraiPrioridade);
 
-        tarefa1.read();
         int op = 1;
-//        Status status = Status.TO_DO;
-//        System.out.println(status.getStatus());
 
         System.out.println("----------- SEJA BEM-VINDO AO TO-DO LIST COROTINHO -------------");
         do {
 
             tarefas.sort(comparePrioridade);
-             System.out.println("Escolha uma das opções \n 1- Criar tarefa \n 2- Ver lista de tarefa \n 3- Apagar tarefa \n 4- Sair");
+            System.out.println("Escolha uma das opções \n 1- Criar tarefa \n 2- Ver lista de tarefa \n 3- Apagar tarefa \n 4- Sair");
             System.out.println("Digite a opção: ");
             op = sc.nextInt();
 
-            ////////////////////////// CRIAR TAREFA /////////////////////////////////////////////////////////////////////
-            if (op == 1) {
+            if (op == 1)
+            {
 
-                Tarefa tarefa;
+                Tarefa tarefa = new Tarefa();
 
-                System.out.println("ID da tarefa: ");
-                int id = sc.nextInt();
+                tarefa.setId(tarefas.size() + 1);
+
                 System.out.println("Nome da tarefa: ");
-                String nome = sc.next();;
+                tarefa.setNome(sc.next());
+
                 System.out.println("Descrição da tarefa: ");
-                String descricao = sc.next();
+                tarefa.setDescricao(sc.next());
+
                 System.out.println("Data de prioridade da tarefa: ");
-                String data = sc.next();
+                tarefa.setData_de_prioridade(sc.next());
+
+
                 System.out.println("Categoria da tarefa: ");
-                String categoria = sc.next();
+                tarefa.setCategoria(sc.next());
+
                 System.out.println("Status da tarefa: \n 1-TO-DO \n 2-DOING \n 3-DONE");
                 String opStatus = sc.next();
                 Status status;
-
-                if (opStatus.equals("1")){status = Status.TO_DO;}
-                else if (opStatus.equals("2")){status = Status.DOING;}
-                else if (opStatus.equals("3")){status = Status.DONE;}
-                else {status = Status.TO_DO;}
+                switch (opStatus){
+                    case "1" -> status = Status.TO_DO;
+                    case "2" -> status = Status.DOING;
+                    case "3" -> status = Status.DONE;
+                    default -> status = Status.TO_DO;
+                }
+                tarefa.setStatus(status);
 
                 System.out.println("Prioridade da tarefa 1 - 5");
-                Integer opPrior = sc.nextInt();
-
+                int opPrior = sc.nextInt();
                 if (opPrior < 0 || opPrior > 5){
 
                     if (opPrior > 5){
@@ -78,78 +85,90 @@ public class Main {
                         opPrior = 0;
                     }
                 }
-
-
+                tarefa.setPrioridade(opPrior);
 
                 try {
-                     tarefas.add(new Tarefa(id, nome, descricao, data, categoria, status, opPrior ));
+                     tarefas.add(tarefa);
+
                 }catch (Exception e){
                     System.out.println(e.getMessage());
                     System.out.println("Erro ao criar tarefa");
                 }
+            }
 
-           /////////////////////////////////////// LISTAR TAREFAS ////////////////////////////////////////////////////////////////////
 
-            } else if (op == 2) {
 
-                
+            else if (op == 2)
+            {
+
                 System.out.println(" 1- Todas as tarefas \n 2- listar por categoria \n 3- listar por status");
                 int opcao = sc.nextInt();
-               // if (opcao == 1){for (Tarefa tarefa : tarefas){tarefa.read();}}
-                if (opcao == 1){
 
-                    for (Tarefa tarefa : tarefas){tarefa.read();}
+                switch (opcao) {
+                    case 1 -> {
+                        for (Tarefa tarefa : tarefas) {
+                            tarefa.read();
+                        }
+                        try {
 
-                }
+                            BufferedReader br = new BufferedReader(new FileReader("/home/paulo/IdeaProjects/TODO_LIST/TarefasSalvas/TarefasSalvas.json"));
 
-                
-                else if(opcao == 2){
-                    System.out.println("Todas as categorias:");
-                    for (Tarefa tarefa : tarefas){
-                        System.out.println(tarefa.getCategoria());
+                            //Converte String JSON para objeto Java
+                            List lista = gson.fromJson(br, List.class);
+
+                            for (Object tarefa : lista){
+                                System.out.println(tarefa);
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
                     }
-                    System.out.println("Digite qual cateogria deseja filtar:");
-                    String opCategoria = sc.next();
-
-                   tarefas.stream().filter(value -> value.getCategoria().equals(opCategoria)).forEach(Tarefa::read);
-
-                }
-                else if(opcao == 3 ){
-                    System.out.println("Status:");
-                    for (Tarefa tarefa : tarefas){
-                        System.out.println(tarefa.getStatus());
+                    case 2 -> {
+                        System.out.println("Todas as categorias:");
+                        for (Tarefa tarefa : tarefas) {
+                            System.out.println(tarefa.getCategoria());
+                        }
+                        System.out.println("Digite qual cateogria deseja filtar:");
+                        String opCategoria = sc.next();
+                        tarefas.stream().filter(value -> value.getCategoria().equals(opCategoria)).forEach(Tarefa::read);
                     }
-                    System.out.println("Digite qual Status deseja filtar:");
-                    String opStatus = sc.next();
-
-                    tarefas.stream().filter(value -> value.getStatus().equals(Status.valueOf(opStatus))).forEach(Tarefa::read);
-
+                    case 3 -> {
+                        System.out.println("Status:");
+                        for (Tarefa tarefa : tarefas) {
+                            System.out.println(tarefa.getStatus());
+                        }
+                        System.out.println("Digite qual Status deseja filtar:");
+                        String opStatus = sc.next();
+                        tarefas.stream().filter(value -> value.getStatus().equals(Status.valueOf(opStatus))).forEach(Tarefa::read);
+                    }
+                    default -> {
+                        for (Tarefa tarefa : tarefas) {
+                            tarefa.read();
+                        }
+                    }
                 }
-                else {for (Tarefa tarefa : tarefas){tarefa.read();}}
-
             }
-            //////////////////////////// DELETAR TAREFA //////////////////////////////////////////////////////////////////////////////////
-           else if (op == 3) {
 
+           else if (op == 3)
+           {
                 System.out.println("Todas as Tarefas: ");
                 for (Tarefa tarefa : tarefas){tarefa.read();}
                 System.out.println("Digite o id da tarefa que deseja excluir: ");
-                Integer opDelete = sc.nextInt();
+                int opDelete = sc.nextInt();
 
-
-                tarefas.removeIf( v -> v.getId() == opDelete );
-
+                tarefas.removeIf( tarefa -> tarefa.getId() == opDelete );
             }
-
-           //////////////////////// FIM //////////////////////////////////////////////////////
-
             else{
                 System.out.println("Até mais");
             }
 
+
         }
         while ((op > 0 && op < 4));
-
+        SalvarTarefas.salvar(tarefas);
 
 
 
