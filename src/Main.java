@@ -1,5 +1,6 @@
 import APP.Status;
 import APP.Tarefa;
+import APP.alarmTarefa;
 import com.google.gson.Gson;
 import saveRead.SalvarTarefas;
 
@@ -16,17 +17,25 @@ public class Main {
         Gson gson = new Gson();
         Scanner sc = new Scanner(System.in);
 
+
+
         List<Tarefa> tarefas = new ArrayList<>();
         Tarefa tarefa1 = new Tarefa(1,"Fazer CRD", "Fazer o back-end do to-do list e adicionar as funcionalidades CRD","12-02-2023", "Back-end", Status.DOING, 1);
         Tarefa tarefa2 = new Tarefa(2, "Clase da Tarefa", "Criar uma classe com os atributos da tarefa","12-12-2023", "Back-end", Status.DONE, 1);
         Tarefa tarefa3 = new Tarefa(3, "Fazer tela dos cards das tarefas", "Usar pre modelos prontos de cards e customizar","12-03-2023", "Front-end", Status.TO_DO, 3);
         Tarefa tarefa4 = new Tarefa(4, "Banco de dados", "Criar o banco de dados da terefa e seus relacionamentos","12-02-2023", "BD", Status.TO_DO, 5);
-        Tarefa tarefa5 = new Tarefa(5, "Fazer menu crud", "Criar uma aba para o CRUD ","12-02-2023", "Front-end", Status.TO_DO, 3);
+        Tarefa tarefa5 = new Tarefa(5, "Fazer menu crud", "Criar uma aba para o CRUD ","08-09-2023", "Front-end", Status.TO_DO, 3);
         tarefas.add(tarefa1);
         tarefas.add(tarefa2);
         tarefas.add(tarefa3);
         tarefas.add(tarefa4);
         tarefas.add(tarefa5);
+
+        List<Tarefa> tarefasComAlarmes = new ArrayList<>();
+        tarefasComAlarmes.add(tarefa3);
+        tarefasComAlarmes.add(tarefa5);
+
+        alarmTarefa.AcionadorDeTarefas(tarefasComAlarmes);
 
 
 
@@ -56,8 +65,19 @@ public class Main {
                 System.out.println("Descrição da tarefa: ");
                 tarefa.setDescricao(sc.next());
 
+                String lembrar;
                 System.out.println("Data de prioridade da tarefa: ");
                 tarefa.setData_de_prioridade(sc.next());
+
+                System.out.println("Deseja se lembrado desta tarefas na data? \n [S/N]");
+                lembrar = sc.next().toUpperCase();
+                switch (lembrar){
+                    case "S" -> tarefa.setAlarmeAtivo(true);
+                    case "N" -> tarefa.setAlarmeAtivo(false);
+                    case "SIM" ->tarefa.setAlarmeAtivo(true);
+                    case "NAO" -> tarefa.setAlarmeAtivo(false);
+                    default -> tarefa.setAlarmeAtivo(false);
+                }
 
 
                 System.out.println("Categoria da tarefa: ");
@@ -88,12 +108,19 @@ public class Main {
                 tarefa.setPrioridade(opPrior);
 
                 try {
+                    if (tarefa.getAlarmeAtivo()){
+                        tarefasComAlarmes.add(tarefa);
+                    }
                      tarefas.add(tarefa);
+
+
 
                 }catch (Exception e){
                     System.out.println(e.getMessage());
                     System.out.println("Erro ao criar tarefa");
                 }
+
+                alarmTarefa.AcionadorDeTarefas(tarefasComAlarmes);
             }
 
 
@@ -169,7 +196,7 @@ public class Main {
         }
         while ((op > 0 && op < 4));
         SalvarTarefas.salvar(tarefas);
-
+        alarmTarefa.AcionadorDeTarefas(tarefasComAlarmes);
 
 
 

@@ -4,23 +4,19 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Tarefa implements Serializable {
-
-
+public class Tarefa implements Serializable{
 
     private int id ;
     private String nome;
     private String descricao;
-
     private LocalDate data_de_prioridade;
     private String categoria;
 
 
+
+    private Boolean alarmeAtivo;
     private int prioridade ;
-
     private Status status;
-
-
 
 
     //CREATE TAREFA
@@ -35,16 +31,12 @@ public class Tarefa implements Serializable {
        this.prioridade = prioridade;
 
     }
-    public Tarefa(){
-
-
-    }
+    public Tarefa(){}
 
     @Override
     public String toString() {
         return "ID: "+ this.id + ", nome: " +  this.getNome() + ", descrição: " + this.getDescricao() +
                 ", data: " + this.getData_de_prioridade() + ", categoria: " + this.getCategoria() + ", Status: " + getStatus() + ", Prioridade: " + this.getPrioridade();
-
     }
 
     //READ TAREFA
@@ -52,9 +44,6 @@ public class Tarefa implements Serializable {
 
         System.out.println( this);
     }
-
-
-
 
 
     public int getId() {
@@ -106,7 +95,6 @@ public class Tarefa implements Serializable {
         this.categoria = categoria;
     }
 
-
     public Status getStatus() {
         return status;
     }
@@ -123,6 +111,17 @@ public class Tarefa implements Serializable {
         this.prioridade = prioridade;
     }
 
+    public void setData_de_prioridade(LocalDate data_de_prioridade) {
+        this.data_de_prioridade = data_de_prioridade;
+    }
+
+    public Boolean getAlarmeAtivo() {
+        return alarmeAtivo;
+    }
+
+    public void setAlarmeAtivo(Boolean alarmeAtivo) {
+        this.alarmeAtivo = alarmeAtivo;
+    }
 
 
 
