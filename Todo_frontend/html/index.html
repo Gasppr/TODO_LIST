@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/style.css">
+    </link>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+  />
+    <title>TO-DO LIST COROTINHO</title>
+</head>
+
+<body>
+
+    <aside class="sidebar ">
+        <nav class="">
+
+            <button>
+                <span>
+                    <i class="material-symbols-outlined">home</i>
+                    <span>HOME</span>
+                </span>
+            </button>
+
+            <button>
+                <span>
+                    <i class="material-symbols-outlined">tag</i>
+                    <span>OVERVIEW</span>
+                </span>
+            </button>
+
+            <button>
+                <span>
+                    <i class="material-symbols-outlined">task</i>
+                    <span>TASKS</span>
+                </span>
+            </button>
+
+            <button>
+                <span>
+                    <i class="material-symbols-outlined">done</i>
+                    <span>STATS</span>
+                </span>
+            </button>
+        </nav>
+    </aside>
+
+
+
+
+    <form action="" class="main border"  
+    style="
+    display: flex;
+    flex-direction: row; 
+    justify-content:space-around;
+    align-items: center;">
+
+        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
+           Adicionar tarefa
+          </button>
+
+
+          <div style="display: flex;">
+            <input type="text" class="todo-input">
+            <button><i class="material-symbols-outlined">search</i></button>
+             
+          </div>
+          
+        <div class="select">
+            <select name="todos" class="filter-todo">
+                <option value="TO_DO">TO DO </option>
+                <option value="DOING">DOING</option>
+                <option value="DONE">DONE</option>
+            </select>
+
+        </div>
+    </form>
+
+
+    <div class="todo-container">
+        <ul class="todo-list">
+            <div class="card">
+                <div class="card-header">
+                  Name Task
+                </div>
+                <div class="card-body">
+                  <blockquote class="blockquote mb-0">
+                    <p>Description: test</p>
+
+                    <div class="" style="text-align: end;
+                    display: flow;">
+
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal">
+                         delete
+                          <i class="material-symbols-outlined">delete</i>
+                        </button>
+
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#ModalEdit">
+                          Edit
+                           <i class="material-symbols-outlined">edit</i>
+                         </button>
+                    </div>
+                    
+                    <footer class="blockquote-footer">Date: <cite title="Source Title">##/##/####</cite></footer>
+                  </blockquote>
+                </div>
+              </div>
+        </ul>
+    </div>
+
+  
+  <!-- Modal - Create task-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Create Task </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="row g-3">
+
+                <div class="col-md-12">
+                  <label for="inputEmail4" class="form-label">Name task </label>
+                  <input type="email" class="form-control" id="">
+                </div>
+
+                <div class="col-md-12">
+                  <label for="message-text" class="form-label">Description</label>
+                  <textarea class="form-control" id=""></textarea>
+                </div>
+
+                <div class="col-12">
+                  <label for="" class="form-label">Priority date</label>
+                  <input type="date" class="form-control" id="" placeholder="1234 Main St">
+                </div>
+                <div class="col-12">
+                  <label for="inputAddress2" class="form-label">Category</label>
+                  <input type="text" class="form-control" id="" placeholder="">
+                </div>
+               
+                <div class="col-md-6">
+                  <label for="inputState" class="form-label">Task priority</label>
+                  <select id="inputState" class="form-select">
+                    <option selected>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputState" class="form-label">Status</label>
+                    <select id="inputState" class="form-select">
+                      <option>TO DO</option>
+                      <option>DOING</option>
+                      <option>DONE</option>
+                    </select>
+                  </div>
+                <div class="col-4">
+                  <div class="form-check">
+                    <label class="form-check-label" for="gridCheck">
+                        Do you want to be notified?
+                    </label>
+                    <input class="form-check-input" type="checkbox" id="">
+                   
+                  </div>
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <!-----------Edit Task   -->
+
+    <!-- Modal - Create task-->
+    <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Task </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form class="row g-3">
+  
+                  <div class="col-md-12">
+                    <label for="inputEmail4" class="form-label">Name task </label>
+                    <input type="email" class="form-control" id="">
+                  </div>
+  
+                  <div class="col-md-12">
+                    <label for="message-text" class="form-label">Description</label>
+                    <textarea class="form-control" id=""></textarea>
+                  </div>
+  
+                  <div class="col-12">
+                    <label for="" class="form-label">Priority date</label>
+                    <input type="date" class="form-control" id="" placeholder="1234 Main St">
+                  </div>
+                  <div class="col-12">
+                    <label for="inputAddress2" class="form-label">Category</label>
+                    <input type="text" class="form-control" id="" placeholder="">
+                  </div>
+                 
+                  <div class="col-md-6">
+                    <label for="inputState" class="form-label">Task priority</label>
+                    <select id="inputState" class="form-select">
+                      <option selected>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                      <label for="inputState" class="form-label">Status</label>
+                      <select id="inputState" class="form-select">
+                        <option>TO DO</option>
+                        <option>DOING</option>
+                        <option>DONE</option>
+                      </select>
+                    </div>
+                  <div class="col-4">
+                    <div class="form-check">
+                      <label class="form-check-label" for="gridCheck">
+                          Do you want to be notified?
+                      </label>
+                      <input class="form-check-input" type="checkbox" id="">
+                     
+                    </div>
+                  </div>
+                </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ 
+
+
+    <script src="./script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
