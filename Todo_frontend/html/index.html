@@ -67,8 +67,8 @@
 
 
           <div style="display: flex;">
-            <input type="text" class="todo-input">
-            <button><i class="material-symbols-outlined">search</i></button>
+            <input type="text" class="">
+            <button class=""><i class="material-symbols-outlined">search</i></button>
              
           </div>
           
@@ -85,7 +85,8 @@
 
     <div class="todo-container">
         <ul class="todo-list">
-            <div class="card">
+          <li>
+            <div class="card todo-item">
                 <div class="card-header">
                   Name Task
                 </div>
@@ -111,6 +112,7 @@
                   </blockquote>
                 </div>
               </div>
+            <li>
         </ul>
     </div>
 
@@ -128,39 +130,39 @@
 
                 <div class="col-md-12">
                   <label for="inputEmail4" class="form-label">Name task </label>
-                  <input type="email" class="form-control" id="">
+                  <input type="text" class="form-control  name" id="">
                 </div>
 
                 <div class="col-md-12">
                   <label for="message-text" class="form-label">Description</label>
-                  <textarea class="form-control" id=""></textarea>
+                  <textarea class="form-control  description" id=""></textarea>
                 </div>
 
                 <div class="col-12">
                   <label for="" class="form-label">Priority date</label>
-                  <input type="date" class="form-control" id="" placeholder="1234 Main St">
+                  <input type="date " class="form-control date" id="" placeholder="1234 Main St">
                 </div>
                 <div class="col-12">
                   <label for="inputAddress2" class="form-label">Category</label>
-                  <input type="text" class="form-control" id="" placeholder="">
+                  <input type="text" class="form-control category" id="" placeholder="">
                 </div>
                
                 <div class="col-md-6">
                   <label for="inputState" class="form-label">Task priority</label>
-                  <select id="inputState" class="form-select">
-                    <option selected>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <select id="inputState" class="form-select priority">
+                    <option selected value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                   </select>
                 </div>
                 <div class="col-md-6">
                     <label for="inputState" class="form-label">Status</label>
-                    <select id="inputState" class="form-select">
-                      <option>TO DO</option>
-                      <option>DOING</option>
-                      <option>DONE</option>
+                    <select id="inputState" class="form-select status" todo-input>
+                      <option value="TO_DO">TO DO</option>
+                      <option value="DOING">DOING</option>
+                      <option value="DONE">DONE</option>
                     </select>
                   </div>
                 <div class="col-4">
@@ -168,7 +170,7 @@
                     <label class="form-check-label" for="gridCheck">
                         Do you want to be notified?
                     </label>
-                    <input class="form-check-input" type="checkbox" id="">
+                    <input class="form-check-input alarmActive" type="checkbox" id="">
                    
                   </div>
                 </div>
@@ -176,7 +178,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary todo-button" type="submit" onclick="reload()">Save changes</button>
         </div>
       </div>
     </div>
@@ -187,7 +189,7 @@
   <!-----------Edit Task   -->
 
     <!-- Modal - Create task-->
-    <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -251,12 +253,12 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
  
 
 
-    <script src="./script.js"></script>
+    <script src="../js/script.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
